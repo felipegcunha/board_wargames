@@ -19,7 +19,6 @@ def extract_text_from_image(image):
     text = pytesseract.image_to_string(gray, config = custom_config)
     text_list = text.split()
     text_list = [word.strip().lower() for word in text_list]
-    print("Texto extraído:", text_list)
     
     try:
         idx_start = len(text_list) - 1 - next(i for i, word in enumerate(reversed(text_list)) if word.startswith("Meta"))
@@ -30,6 +29,7 @@ def extract_text_from_image(image):
     text_list = [word for word in text_list if word.isdigit() or len(word) >= 3]
     
     color_keywords = ["Red", "Blue", "Green", "Yellow", "Purple", "Orange"]
+    print("Texto extraído:", text_list)
     num_jogadores = next((i for i, word in enumerate(text_list) if word in color_keywords), len(text_list))
     
     return text_list, num_jogadores
