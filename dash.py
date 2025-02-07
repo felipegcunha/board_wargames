@@ -6,7 +6,9 @@ import cv2
 import pytesseract
 from PIL import Image
 import numpy as np
+import subprocess
 
+subprocess.run(['./install.sh'], check=True)
 pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 # Verifique se o Tesseract está acessível
