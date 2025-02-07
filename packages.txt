@@ -1,1 +1,5 @@
 tesseract-ocr
+libleptonica-dev
+libtesseract-dev
+wget
+unzip

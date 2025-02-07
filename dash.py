@@ -6,7 +6,17 @@ import cv2
 import pytesseract
 from PIL import Image
 import numpy as np
+import os
 import subprocess
+
+try:
+    output = subprocess.run(["tesseract", "--version"], capture_output=True, text=True)
+    if "5.4.0" not in output.stdout:
+        print("Versão do Tesseract desatualizada. Instalando a versão 5.4.0...")
+        subprocess.run(["bash", "setup.sh"], check=True)
+        print("Tesseract atualizado para 5.4.0!")
+except Exception as e:
+    print(f"Erro ao verificar ou instalar Tesseract: {e}")
 
 pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
@@ -39,9 +49,6 @@ def parse_text_to_dataframe(text_list, num_jogadores):
     total_required = num_jogadores * 7
     
     if len(text_list) < total_required:
-        output = subprocess.run(["tesseract", "--version"], capture_output=True, text=True)
-        st.text("Versão do Tesseract no servidor:")
-        st.text(output.stdout)
         st.warning("O número de elementos extraídos da imagem é menor do que o esperado. Verifique a imagem e tente novamente.")
         return pd.DataFrame(columns=["Nome", "Time", "Kills", "Assistências", "Dano", "Dano Sofrido", "Cura"])
     
