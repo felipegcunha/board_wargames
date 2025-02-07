@@ -16,7 +16,7 @@ print(pytesseract.get_tesseract_version())
 def extract_text_from_image(image):
     img = np.array(image)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    custom_config = r'--oem 1 --psm 13'
+    custom_config = r'--oem 3 --psm 13'
     text = pytesseract.image_to_string(gray)
     text_list = text.split()
     text_list = [word.strip().lower() for word in text_list]
