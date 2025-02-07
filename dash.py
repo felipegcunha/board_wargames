@@ -39,7 +39,6 @@ def parse_text_to_dataframe(text_list, num_jogadores):
     total_required = num_jogadores * 7
     
     if len(text_list) < total_required:
-        st.warning(text_list)
         st.warning("O número de elementos extraídos da imagem é menor do que o esperado. Verifique a imagem e tente novamente.")
         return pd.DataFrame(columns=["Nome", "Time", "Kills", "Assistências", "Dano", "Dano Sofrido", "Cura"])
     
