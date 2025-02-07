@@ -8,10 +8,6 @@ from PIL import Image
 import numpy as np
 import subprocess
 
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
-
-# Verifique se o Tesseract está acessível
-print(pytesseract.get_tesseract_version())
 
 def extract_text_from_image(image):
     img = np.array(image)
@@ -109,16 +105,15 @@ def plot_bar_chart(df, selected_players):
 def main():
     df = pd.DataFrame()
     st.sidebar.header("Filtros")
-    uploaded_files = st.file_uploader("Carregar Arquivos (CSV ou Imagem)", type=["csv", "png", "jpg", "jpeg"], accept_multiple_files=True)
+    uploaded_files = st.file_uploader("Carregar Arquivos (CSV ou xlsx)", type=["csv", "xlsx"], accept_multiple_files=True)
     
     if uploaded_files:
         for uploaded_file in uploaded_files:
             if uploaded_file.type == "text/csv":
                 temp_df = pd.read_csv(uploaded_file)
             else:
-                image = Image.open(uploaded_file)
-                text_list, num_jogadores = extract_text_from_image(image)
-                temp_df = parse_text_to_dataframe(text_list, num_jogadores)
+                if uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                    temp_df = pd.read_excel(uploaded_file)
             
             df = pd.concat([df, temp_df], ignore_index=True)
     
