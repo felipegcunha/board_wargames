@@ -20,6 +20,7 @@ def extract_text_from_image(image):
     text_list = text.split()
     text_list = [word.strip().lower() for word in text_list]
     print("Texto extraído:", text_list)
+    st.warning(text_list)
     try:
         idx_start = len(text_list) - 1 - next((i for i, word in enumerate(reversed(text_list)) if word.startswith("Meta")), -1)
         text_list = text_list[idx_start + 1:]
