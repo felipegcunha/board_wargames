@@ -7,7 +7,7 @@ import pytesseract
 from PIL import Image
 import numpy as np
 
-
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 def extract_text_from_image(image):
     img = np.array(image)
