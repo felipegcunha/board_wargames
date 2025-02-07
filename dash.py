@@ -15,13 +15,13 @@ print(pytesseract.get_tesseract_version())
 def extract_text_from_image(image):
     img = np.array(image)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    #custom_config = r'--oem 3'
+    custom_config = r'--oem 3'
     text = pytesseract.image_to_string(gray)
     text_list = text.split()
     text_list = [word.strip().lower() for word in text_list]
     
     try:
-        idx_start = len(text_list) - 1 - next(i for i, word in enumerate(reversed(text_list)) if word.startswith("Meta"))
+        idx_start = len(text_list) - 1 - next((i for i, word in enumerate(reversed(text_list)) if word.startswith("Meta")), -1)
         text_list = text_list[idx_start + 1:]
     except ValueError:
         pass
