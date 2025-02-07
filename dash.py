@@ -8,6 +8,7 @@ from PIL import Image
 import numpy as np
 import subprocess
 
+subprocess.run(["chmod", "+x", "./install.sh"], check=True)
 subprocess.run(['./install.sh'], check=True)
 pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
